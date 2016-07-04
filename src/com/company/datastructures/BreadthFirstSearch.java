@@ -1,5 +1,7 @@
 package com.company.datastructures;
 
+import com.company.datastructures.graph.GraphNode;
+import com.company.datastructures.graph.GraphNodeQueue;
 import com.company.datastructures.queue.Queue;
 
 /**

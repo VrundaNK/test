@@ -2,10 +2,13 @@ package com.company;
 
 import com.company.datastructures.*;
 import com.company.datastructures.Number;
+import com.company.datastructures.graph.Graph;
+import com.company.datastructures.graph.GraphNode;
 import com.company.datastructures.linkedList.MyLinkedList;
 import com.company.datastructures.linkedList.Node;
 import com.company.datastructures.stack.SetOfStacks;
 import com.company.datastructures.stack.SortedStack;
+import com.company.mathematics.PrimeNumbers;
 import com.company.searching.Searching;
 import com.company.sorting.*;
 
@@ -913,5 +916,27 @@ public class Main {
         sortedStack.push(1);
 
         val = sortedStack.peek();
+
+        PrimeNumbers.printListOfPrimeNumbers(20);
+
+        TowersOfHanoi.moveDisks();
+
+        binarySearchTree = new BinarySearchTree();
+        binarySearchTree.add(12);
+        binarySearchTree.add(5);
+        binarySearchTree.add(15);
+        binarySearchTree.add(17);
+        binarySearchTree.add(3);
+        binarySearchTree.add(7);
+        binarySearchTree.add(13);
+        binarySearchTree.add(1);
+        binarySearchTree.add(9);
+        binarySearchTree.add(14);
+        binarySearchTree.add(20);
+        binarySearchTree.add(8);
+        binarySearchTree.add(11);
+        binarySearchTree.add(18);
+
+        binarySearchTree.deleteANode(binarySearchTree.getRoot(),15);
     }
 }

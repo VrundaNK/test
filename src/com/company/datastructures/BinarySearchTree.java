@@ -35,8 +35,8 @@ public class BinarySearchTree {
     public void printBinaryTreeInOrder(TreeNode root) {
 
         if(root == null) return;
-        System.out.println(root.getData());
         printBinaryTreeInOrder(root.left);
+        System.out.println(root.getData());
         printBinaryTreeInOrder(root.right);
     }
 
@@ -67,4 +67,51 @@ public class BinarySearchTree {
         return numbers;
 
     }
+
+    // delete a node from binary search tree
+    public static TreeNode deleteANode(TreeNode root, int data) {
+
+        if(root == null) return root;
+
+        if(data < root.getData()) {
+            if(root.left == null) {
+                System.out.println(String.format("The data %d to delete is not present in tree", data));
+            }
+            root.left = deleteANode(root.left, data);
+        } else if(data > root.getData()) {
+            if(root.right == null) {
+                System.out.println(String.format("The data %d to delete is not present in tree", data));
+            }
+            root.right = deleteANode(root.right, data);
+        } else { // data == root.getData(), hence we need to delete root,
+            // 1. node to delete is the leaf node
+            if (root.left == null && root.right == null) {
+                return null;
+            }
+            // 2. node to delete has only one child
+            else if(root.left == null) {
+                root = deleteANode(root.right, data);
+            } else if(root.right == null) {
+                root = deleteANode(root.left, data);
+            }
+            // 3. node to delete has both children
+            // find minimum of right subtree, and copy that minimum value at root.
+            else {
+                TreeNode temp = findMin(root.right, root.right);
+                root.setData(temp.getData());
+                root.right = deleteANode(root.right, temp.getData());
+            }
+        }
+        return root;
+    }
+
+    private static TreeNode findMin(TreeNode root, TreeNode minimumValueNode) {
+
+        if(root == null) return minimumValueNode;
+        if(root.getData() < minimumValueNode.getData()) {
+            root = findMin(root.left, root);
+        }
+        return root;
+    }
+
 }

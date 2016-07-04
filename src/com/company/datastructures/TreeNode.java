@@ -5,7 +5,7 @@ package com.company.datastructures;
  */
 public class TreeNode {
 
-    int data;
+    private int data;
     TreeNode left;
     TreeNode right;
 
@@ -17,5 +17,9 @@ public class TreeNode {
 
     public int getData() {
         return this.data;
+    }
+
+    public void setData(int data) {
+        this.data = data;
     }
 }

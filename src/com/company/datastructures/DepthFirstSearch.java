@@ -1,5 +1,7 @@
 package com.company.datastructures;
 
+import com.company.datastructures.graph.GraphNode;
+
 import java.util.Stack;
 
 /**
@@ -15,16 +17,16 @@ public class DepthFirstSearch {
         Stack<GraphNode> stack = new Stack<GraphNode>();
 
         stack.push(vertex);
-        vertex.visited = true;
+        vertex.setVisited(true);
 
         while( !stack.isEmpty() ) {
             vertex = stack.pop();
             System.out.print(vertex.getValue() + ",");
 
-            for(GraphNode graphNode : vertex.adj) {
-                if(!graphNode.visited) {
+            for(GraphNode graphNode : vertex.getAdj()) {
+                if(!graphNode.getVisited()) {
                     stack.push(graphNode);
-                    graphNode.visited = true;
+                    graphNode.setVisited(true);
                 }
             }
         }

@@ -1,4 +1,4 @@
-package com.company.datastructures;
+package com.company.datastructures.graph;
 
 /**
  * Created by vnagpurkar on 6/20/16.
