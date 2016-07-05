@@ -1,4 +1,4 @@
-package com.company.datastructures;
+package com.company.datastructures.string;
 
 import com.company.util.Frequency;
 import com.company.util.FrequencyCompartor;
@@ -780,6 +780,52 @@ public class Strings {
 
     private static boolean isSubstring(String str1, String str2) {
         return str1.contains(str2);
+    }
+
+    // How to sort String on their length in Java?
+    public static void printAndSortStringsBasedOnLength(String[] input) {
+
+        Arrays.sort(input, new StringLengthComparator());
+
+        for(String s: input) {
+            System.out.println(s);
+        }
+    }
+
+    // Write a program to remove a given characters from String
+    public static void removeCharFromString(String input, char c) {
+
+        if(input == null || input.length() == 0) return;
+
+        StringBuilder sb = new StringBuilder();
+        int length = input.length();
+        for(int i=0; i< length; i++) {
+            if(input.charAt(i) != c) {
+                sb.append(input.charAt(i));
+            }
+        }
+        System.out.println(String.format("String %s after removing character %c is %s", input, c, sb.toString()));
+    }
+
+    // How to return highest occurred character in a String
+    public static void getHighestOccurredCharacter(String input) {
+
+        if(input == null || input.length() == 0) return;
+        Map<Character, Integer> charCounts = new HashMap<Character, Integer>();
+        int length = input.length();
+
+        int count;
+        int max = Integer.MIN_VALUE;
+        char c=' ';
+        for(int i=0; i<length; i++) {
+
+            count = 1;
+            if(charCounts.containsKey(input.charAt(i))) {
+                count = count + charCounts.get(input.charAt(i));
+            }
+            charCounts.put(input.charAt(i), count);
+        }
+        System.out.println(String.format("Highest occurred character in a string %s is %c", input, c));
     }
 
     // Generate all binary strings from given pattern

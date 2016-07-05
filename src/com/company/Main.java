@@ -1,5 +1,6 @@
 package com.company;
 
+import com.company.Recursion.Recursion;
 import com.company.datastructures.*;
 import com.company.datastructures.Number;
 import com.company.datastructures.graph.Graph;
@@ -8,9 +9,11 @@ import com.company.datastructures.linkedList.MyLinkedList;
 import com.company.datastructures.linkedList.Node;
 import com.company.datastructures.stack.SetOfStacks;
 import com.company.datastructures.stack.SortedStack;
+import com.company.datastructures.string.Strings;
 import com.company.mathematics.PrimeNumbers;
 import com.company.searching.Searching;
 import com.company.sorting.*;
+import com.company.thread.ThreadImplementation1;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -938,5 +941,38 @@ public class Main {
         binarySearchTree.add(18);
 
         binarySearchTree.deleteANode(binarySearchTree.getRoot(),15);
+
+        Recursion.printParens(3);
+        Recursion.stringPermutations("abc");
+        Recursion.findMagicIndexDistinct(new int[] {-40,-20, -1,1,2,3,5,7,9,12,13});
+        Recursion.findMagicIndexDistinct(new int[] {-40,-20, 1,2,2,3,5,7,9,12,13});
+
+        ThreadImplementation1 thread1 = new ThreadImplementation1();
+        System.out.println("Thread using runnable interface.");
+        thread1.run();
+        System.out.println("Thread control is returned");
+
+        ThreadImplementation1 threadRunnable = new ThreadImplementation1();
+        System.out.println("Thread is passing object of class, which implemented runnable interface.");
+        Thread thread = new Thread(threadRunnable);
+        thread.start();
+
+        while(threadRunnable.count != 5) {
+            try {
+                System.out.println("Waiting till count is less than 5");
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        System.out.println("Completed thread implementation");
+
+        Strings.printAndSortStringsBasedOnLength(new String[] {"abcd","a","ldd","lhjfhjdfshfdshhjdsf", "345","45"});
+
+        Strings.removeCharFromString("vrunda",'r');
+        Strings.removeCharFromString("vrunda",'l');
+
+        Strings.getHighestOccurredCharacter("aaaaaaaaaaaaaaaaabbbbcddddeeeeee");
+
     }
 }

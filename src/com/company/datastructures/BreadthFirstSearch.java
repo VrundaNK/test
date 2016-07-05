@@ -40,7 +40,7 @@ public class BreadthFirstSearch {
             vertex = queue.deque();
             System.out.print(vertex.getValue() +",");
 
-            for(GraphNode graphNode : vertex.adj) {
+            for(GraphNode graphNode : vertex.getAdj()) {
                 if( !queue.isFull()) {
                     queue.enque(graphNode);
                 }
