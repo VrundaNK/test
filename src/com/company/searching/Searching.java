@@ -1,58 +1,52 @@
 package com.company.searching;
 
-import com.company.datastructures.graph.GraphNode;
-
-import java.util.List;
-import java.util.PriorityQueue;
-
 /**
  * Created by vnagpurkar on 6/23/16.
  */
 public class Searching {
 
+    // Binary search, is used to search a number in sorted array
     public static boolean isNumberPresentUsingBS (int[] input, int number) {
 
-        boolean isPresent = false;
         int left = 0;
         int right = input.length - 1;
         int mid;
 
         while(left <= right) {
 
-            mid = (left + right) / 2;
-            if(number == input[mid]) {
-                isPresent = true;
-                break;
+            mid = (left+right)/ 2;
+            if (input[mid] == number) {
+                return true;
             }
             if(number > input[mid]) {
                 left = mid + 1;
             } else {
-                right = mid -1;
+                right = mid - 1;
             }
         }
-        return isPresent;
+        return false;
     }
 
-    // Breadth First Search
-    public static void bfs(GraphNode node) {
+    public static boolean binarySearchRecursive(int[] input, int x) {
 
-        java.util.Queue<GraphNode> queue = new PriorityQueue<GraphNode>();
-        queue.add(node);
-        while (!queue.isEmpty()) {
-            GraphNode current = queue.remove();
-            if(!current.getVisited()) {
-                System.out.println(current.getValue());
-                current.setVisited(true);
-            }
+        return binarySearchRecursive(input, 0, input.length-1, x);
+    }
 
-            List<GraphNode> adjacents = current.getAdj();
-            for(GraphNode n : adjacents) {
-                if(!n.getVisited()){
-                    System.out.println(current.getValue());
-                    current.setVisited(true);
-                    queue.add(n);
-                }
-            }
+    private static boolean binarySearchRecursive(int[] input, int left, int right, int number) {
+
+        if(left > right) return false;
+
+        int mid = (left + right) / 2;
+
+        if(input[mid] == number) {
+            return true;
+        }
+        if(number > input[mid]) {
+            return binarySearchRecursive(input, mid+1, right, number);
+        } else {
+            return binarySearchRecursive(input, left, mid-1, number);
         }
     }
+
+
 }

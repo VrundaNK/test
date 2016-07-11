@@ -13,10 +13,11 @@ import com.company.datastructures.string.Strings;
 import com.company.mathematics.PrimeNumbers;
 import com.company.searching.Searching;
 import com.company.sorting.*;
-import com.company.thread.ThreadImplementation1;
+import com.ebay.Ebay2;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by vnagpurkar on 6/6/16.
@@ -347,7 +348,6 @@ public class Main {
         myLinkedList2.addAtEnd(10);
         myLinkedList2.addAtEnd(myLinkedList1.getHead().getNext().getNext().getNext());
 
-
         Node<Integer> intersectionNode = myLinkedList.getIntersectionPointOf2Lists(myLinkedList1, myLinkedList2);
 
         myLinkedList = new MyLinkedList<Integer>();
@@ -619,6 +619,19 @@ public class Main {
 
         input = new int[4][4];
         input[0] = new int[]{1, 2, 3, 4};
+        input[1] = new int[]{2, 6, 9, 12};
+        input[2] = new int[]{3, 7, 9, 13};
+        input[3] = new int[]{4, 8, 10, 14};
+
+        Strings.printFindElement(input, 13);
+        Strings.printFindElement(input, 8);
+        Strings.printFindElement(input, 0);
+        Strings.printFindElement(input, 1);
+        Strings.printFindElement(input, 4);
+        Strings.printFindElement(input, 14);
+
+        input = new int[4][4];
+        input[0] = new int[]{1, 2, 3, 4};
         input[1] = new int[]{12, 13, 14, 5};
         input[2] = new int[]{11, 16, 15, 6};
         input[3] = new int[]{10, 9, 8, 7};
@@ -704,7 +717,12 @@ public class Main {
         System.out.println("Quick Sort");
         QuickSort.printQuickSort(new int[]{100, 23, 45, 56, 67});
 
+        System.out.println("Non-Recursive");
         boolean isPresent = Searching.isNumberPresentUsingBS(new int[]{7,9,15,23,25,100}, 7);
+        System.out.println("is number present "+isPresent);
+
+        System.out.println("Recursive");
+        isPresent = Searching.binarySearchRecursive(new int[]{7,9,15,23,25,100}, 7);
         System.out.println("is number present "+isPresent);
 
         HeapSort.heapSort(new int[]{15,25,100,1,2});
@@ -947,7 +965,7 @@ public class Main {
         Recursion.findMagicIndexDistinct(new int[] {-40,-20, -1,1,2,3,5,7,9,12,13});
         Recursion.findMagicIndexDistinct(new int[] {-40,-20, 1,2,2,3,5,7,9,12,13});
 
-        ThreadImplementation1 thread1 = new ThreadImplementation1();
+        /*ThreadImplementation1 thread1 = new ThreadImplementation1();
         System.out.println("Thread using runnable interface.");
         thread1.run();
         System.out.println("Thread control is returned");
@@ -965,7 +983,7 @@ public class Main {
                 e.printStackTrace();
             }
         }
-        System.out.println("Completed thread implementation");
+        System.out.println("Completed thread implementation");*/
 
         Strings.printAndSortStringsBasedOnLength(new String[] {"abcd","a","ldd","lhjfhjdfshfdshhjdsf", "345","45"});
 
@@ -973,6 +991,45 @@ public class Main {
         Strings.removeCharFromString("vrunda",'l');
 
         Strings.getHighestOccurredCharacter("aaaaaaaaaaaaaaaaabbbbcddddeeeeee");
+
+        int res = Strings.contains("abcdefghijkl", "fgh");
+        System.out.println("String1 contains String2 ? "+ (res==0));
+
+        Strings.reverseWords("I am a girl.");
+        Strings.reverseWords("Java is best programming language.");
+
+        System.out.println(String.format("Is %s is palindrome? %b", "nitin",Strings.isPalindrome("nitin")));
+        System.out.println(String.format("Is %s is palindrome? %b", "abcdba",Strings.isPalindrome("abcdba")));
+        System.out.println(String.format("Is %s is palindrome? %b", "abcd",Strings.isPalindrome("abcd")));
+        System.out.println(String.format("Is %s is palindrome? %b", "aba",Strings.isPalindrome("aba")));
+
+        System.out.println(Number.convertNumericStringToInt("67263"));
+        System.out.println(Strings.countOccurence("java", 'a'));
+
+        List<Set<String>> groupedAnagrams = Strings.getAnagramsTogether(new String[]{"bat","top","ant","pot","act","tab","cat","tan"});
+        System.out.println(1);
+        for(Set<String> set: groupedAnagrams) {
+            for(String s:set) {
+                System.out.print(s+",");
+            }
+        }
+        System.out.println();
+
+        Strings.printAnagramsTogetherUsingComparator(new String[]{"bat","top","ant","pot","act","tab","cat","tan"});
+        Strings.printAnagramsTogether(new String[]{"bat","top","ant","pot","act","tab","cat","tan"});
+
+        Strings.printSortedArraysAtBegining(new int[]{1,3,5,9,11,0,0,0,0,0}, new int[]{2,4,6,8,10});
+        Strings.printSortedArraysAtEnd(new int[]{1,3,11,0,0,0,0,0}, new int[]{2,4,6,8,10});
+
+        Number.getSimilarityIndex(new int[]{1,1,2,3,3,4,5,7,9}, new int[]{1,1,2,2,5,8,9,10,10,10,100});
+
+        System.out.println("Number of 1's "+ Ebay2.numberOfOnes(10));
+        System.out.println("Number of 1's "+ Ebay2.numberOfOnes(100000));
+
+        Ebay2.printStartAndEndIndexesOfN(new int[]{0,0,1,1,1,5,5,6,6,6,6,7,11}, 5);
+        Ebay2.printStartAndEndIndexesOfN(new int[]{2,2,2,2,2,2,2,2}, 2);
+        Ebay2.printStartAndEndIndexesOfN(new int[]{0,0,1,1,1,5,5,6,6,6,6,7,11}, 100);
+        Ebay2.printStartAndEndIndexesOfN(new int[]{0,0,1,1,1,5,5,6,6,6,6,7,11}, 7);
 
     }
 }

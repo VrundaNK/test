@@ -40,12 +40,12 @@ public class QuickSort {
                 i++;
                 j--;
             }
-        }
-        if(left < j) {
-            input = quickSort(input, left, j);
-        }
-        if(i < right) {
-            input = quickSort(input, i, right);
+            if(left < j) {
+                input = quickSort(input, left, j);
+            }
+            if(i < right) {
+                input = quickSort(input, i, right);
+            }
         }
         return input;
     }

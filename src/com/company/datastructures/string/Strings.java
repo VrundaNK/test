@@ -35,21 +35,27 @@ public class Strings {
     //Print all the duplicates in the input string
     public static void printDuplicates(String input) {
 
-        if (input != null && input.length() > 1) {
+        if(input == null || input.length() == 0) return;
 
-            Map<Character, Integer> result = new HashMap<Character, Integer>();
+        // if ASCII then use charArray, if charset is not defined then use Map<Character, Integer> charCounts = new HashMap<Character, Integer>();
+        int CHARSIZE = 256;
+        int[] charCounts = new int[CHARSIZE];
 
-            int count;
-            for (int i = 0; i < input.length(); i++) {
+        int length = input.length();
 
-                count = result.get(input.charAt(i)) != null ? result.get(input.charAt(i)) + 1 : 1;
-                result.put(input.charAt(i), count);
-            }
+        int cnt;
+        for(int i=0; i<length; i++) {
 
-            for (Map.Entry<Character, Integer> entry : result.entrySet()) {
-                System.out.println(entry.getKey() + ", count=" + entry.getValue());
+            cnt = charCounts[input.charAt(i)];
+            charCounts[input.charAt(i)] = cnt + 1;
+        }
+        System.out.println("Print duplicates");
+        for(int i=0; i<length; i++) {
+            if(charCounts[input.charAt(i)] > 1) {
+                System.out.print(input.charAt(i));
             }
         }
+        System.out.println();
     }
 
     // Return maximum occurring character in the input string
@@ -811,7 +817,9 @@ public class Strings {
     public static void getHighestOccurredCharacter(String input) {
 
         if(input == null || input.length() == 0) return;
+        // if string has only ASCII/unicode characters, char[] can be used instead of map
         Map<Character, Integer> charCounts = new HashMap<Character, Integer>();
+
         int length = input.length();
 
         int count;
@@ -824,8 +832,278 @@ public class Strings {
                 count = count + charCounts.get(input.charAt(i));
             }
             charCounts.put(input.charAt(i), count);
+            if(count > max) {
+                max = count;
+                c = input.charAt(i);
+            }
         }
         System.out.println(String.format("Highest occurred character in a string %s is %c", input, c));
+    }
+
+    // Write a program to check if a String contains another String e.g. indexOf()
+    public static int contains(String input1, String input2) {
+
+        if(input1 == null || input2 == null) return -1;
+
+        int length1 = input1.length();
+        int length2 = input2.length();
+
+        if(length1 < length2) return -1;
+
+        int i = 0;
+        int j = 0;
+
+        while(i < length1 && j < length2) {
+            if(input1.charAt(i) == input2.charAt(j)) {
+                j++;
+            } else {
+                j=0;
+            }
+            i++;
+        }
+        if(j== length2) {
+            return 0;
+        }
+        return -1;
+    }
+
+    // Print all interleavings of given two strings
+    public static void printInterleavingsOfStrings(String input1, String input2) {
+
+    }
+    // How to check if a String is valid shuffle of two String
+    public static void checkIfStringIsValidShuffleOfTwoStrings(String input1, String input2, String input3) {
+
+
+    }
+
+    // How to reverse words in a sentence without using library method
+    // input = I am a girl
+    // output = girl a am I
+    public static void reverseWords(String sentence) {
+
+        if(sentence == null) return;
+
+        int length = sentence.length();
+        Stack<Character> temp = new Stack<Character>();
+        StringBuilder sb = new StringBuilder();
+
+        for(int i=length-1; i>=0; i--) {
+
+            if(sentence.charAt(i) == ' ') {
+                while(!temp.isEmpty() && temp.peek() !='.') {
+                    sb.append(temp.pop());
+                }
+                sb.append(sentence.charAt(i));
+            } else {
+                temp.push(sentence.charAt(i));
+            }
+        }
+        while(!temp.isEmpty()) {
+            sb.append(temp.pop());
+        }
+        System.out.println(String.format("Reverse words in a sentence %s is", sentence));
+        System.out.println(sb.toString());
+    }
+
+    // How to check if String is Palindrome
+    public static boolean isPalindrome(String input) {
+        if(input == null) {
+            return false;
+        }
+        int length = input.length();
+        int end = length -1;
+        int start = 0;
+
+        while(start<=end) {
+            if(input.charAt(start) == input.charAt(end)) {
+                start++;
+                end--;
+            } else {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    // How to count occurrence of a given character in String
+    public static int countOccurence(String input, char c) {
+
+        if(input == null || input.length() == 0) return -1;
+        int count = 0;
+        for(int i=0; i<input.length(); i++) {
+            if(input.charAt(i) == c) {
+                count++;
+            }
+        }
+        return count;
+    }
+
+    // Write a method to sort an array of strings so that all the anagrams are next to each other
+    public static List<Set<String>> getAnagramsTogether(String[] input) {
+
+        List<Set<String>> output = new ArrayList<Set<String>>();
+
+        Map<String, Set<String>> temp = new HashMap<String, Set<String>>();
+        char[] chars;
+        String key;
+        for(String s: input) {
+
+            chars = s.toCharArray();
+            Arrays.sort(chars);
+            key = String.valueOf(chars);
+
+            Set<String> current;
+            if(temp.containsKey(key)) {
+                current = temp.get(key);
+            } else {
+                current = new HashSet<String>();
+            }
+            current.add(s);
+            temp.put(key, current);
+        }
+        for(Map.Entry<String, Set<String>> entry: temp.entrySet()) {
+            output.add(entry.getValue());
+        }
+        return output;
+    }
+
+    // Write a method to sort an array of strings so that all the anagrams are next to each other
+    public static void printAnagramsTogetherUsingComparator(String[] input) {
+
+        System.out.println(2);
+        Arrays.sort(input, new AnagramComparator());
+        for(String s: input) {
+            System.out.print(s+",");
+        }
+        System.out.println();
+    }
+
+    public static void printAnagramsTogether(String[] input) {
+
+        // 1. create temp map
+        Map<String, Set<String>> temp = new HashMap<String, Set<String>>();
+        char[] chars;
+        String key;
+        Set<String> current;
+        for(String s: input) {
+            chars = s.toCharArray();
+            Arrays.sort(chars);
+            key = String.valueOf(chars);
+
+            if(temp.containsKey(key)) {
+                current = temp.get(key);
+            } else {
+                current = new HashSet<String>();
+            }
+            current.add(s);
+            temp.put(key, current);
+        }
+
+        // 2. copy sorted values from map to input array
+        int cnt = 0;
+        for(Map.Entry<String, Set<String>> entry: temp.entrySet()) {
+            current = entry.getValue();
+            for(String s: current) {
+                input[cnt++] = s;
+            }
+        }
+
+        // 3. print sorted array
+        System.out.println(3);
+        for(String s: input) {
+            System.out.print(s+",");
+        }
+        System.out.println();
+    }
+
+    // You are given two sorted arrays, A and B, where A has a large enough buffer at the end to hold B.
+    // Write a method to merge B into A in sorted order
+    // inserting elements at the back of the array
+    public static void printSortedArraysAtBegining(int[] A, int[] B) {
+
+        int lengthA = A.length;
+        int lengthB = B.length;
+
+        int indexA = lengthA;
+        int indexB = 0;
+
+        for(int i=lengthA-1; i>=0; i--) {
+
+            if(A[i] != 0) {
+                A[--indexA] = A[i];
+            }
+        }
+        // now all elements from array A are shifted from indexA to lengthA-1
+
+        // now populate A by comparing elements from A and B
+        for(int i=0; i<lengthA && indexB<lengthB;i++) {
+
+            if(A[indexA] <= B[indexB]) {
+                A[i] = A[indexA];
+                indexA++;
+            } else {
+                A[i] = B[indexB];
+                indexB++;
+            }
+        }
+
+        // print sorted array
+        System.out.println();
+        for(int i=0;i<lengthA;i++) {
+            System.out.print(A[i]+",");
+        }
+        System.out.println();
+    }
+    // inserting elements at the back of the array
+    public static void printSortedArraysAtEnd(int[] A, int[] B) {
+
+        int lengthA = A.length;
+        int lengthB = B.length;
+
+        int indexB = lengthB-1;
+        int indexA = 0;
+        while(A[indexA] != 0) {
+            indexA++;
+        }
+        indexA = indexA - 1;
+
+        for(int i=lengthA-1; i>=0 && indexA>=0 && indexB>=0; i--) {
+
+            if(A[indexA] > B[indexB]) {
+                A[i] = A[indexA];
+                indexA--;
+            } else {
+                A[i] = B[indexB];
+                indexB--;
+            }
+        }
+
+        // print sorted array
+        System.out.println();
+        for(int i=0;i<lengthA;i++) {
+            System.out.print(A[i]+",");
+        }
+        System.out.println();
+    }
+
+    // Given an MX N matrix in which each row and each column is sorted in ascending order, write a method to find an element
+    public static void printFindElement(int[][] input, int x) {
+
+        int row = 0;
+        int col = input[0].length-1;
+
+        while(row < input.length && col >=0) {
+            if(input[row][col] == x) {
+                System.out.println(String.format("%d found element",x));
+                return;
+            } else if(x > input[row][col]) {
+                row = row+1;
+            } else {
+                col = col -1;
+            }
+        }
+        System.out.println(String.format("Could not found element %d", x));
     }
 
     // Generate all binary strings from given pattern

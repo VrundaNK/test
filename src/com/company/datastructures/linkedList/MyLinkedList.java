@@ -325,10 +325,10 @@ public class MyLinkedList<E> {
             fastPointer = fastPointer.getNext().getNext();
         }
         // odd elements
-        if(fastPointer != null) {
+        /*if(fastPointer != null) {
             midNode = slowPointer;
             slowPointer = slowPointer.getNext();
-        }
+        }*/
 
         // 2. reverse the second half of the list
         Node<Character> current = slowPointer;
@@ -360,7 +360,8 @@ public class MyLinkedList<E> {
 
     // Function to check if a singly linked list is palindrome
     // METHOD 3 (Using Recursion)
-    public boolean isPalindromeMethod3(MyLinkedList<Character> myLinkedList) {
+    // This method the way is explained in geeksforgeeks is not applicable in java
+    /* public boolean isPalindromeMethod3(MyLinkedList<Character> myLinkedList) {
 
         if(myLinkedList.getHead() == null) return false;
         return isPalindromeRecur(myLinkedList.getHead(), myLinkedList.getHead().getNext(), true);
@@ -368,15 +369,19 @@ public class MyLinkedList<E> {
 
     private static boolean isPalindromeRecur(Node<Character> left, Node<Character> right, boolean result) {
 
-        if(right == null) return true;
+        if(left == null || result == false) return result;
 
-        result = right.getData() == left.getData();
-        if(!result) return false;
-
-        result = result & isPalindromeRecur(left.getNext(), right.getNext(), result);
-
+        if(right.next != null) {
+            result = isPalindromeRecur(left, right.next, result);
+        }
+        if(left.getData() == right.getData()) {
+            result = result & true;
+        } else {
+            result = result & false;
+        }
+        left = left.next;
         return result;
-    }
+    }*/
 
     // Given a linked list which is sorted, how will you insert in sorted way
     // Using prev, next and current pointers

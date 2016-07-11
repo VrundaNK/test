@@ -2,6 +2,7 @@ package com.company.Recursion;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Stack;
 
 /**
  * Created by vnagpurkar on 7/4/16.
@@ -17,28 +18,52 @@ public class Recursion {
 
         char[] str = new char[2*n];
         List<String> allParens = new ArrayList<String>();
-        allParens = addParens(allParens, n, n, str, 0);
+        allParens = addParensRecur(allParens, n, n, str, 0);
 
         for(String s: allParens) {
             System.out.println(s);
         }
     }
 
-    private static List<String> addParens(List<String> allParens, int leftParen, int rightParen,
+    private static void printParensNonRecur(int n) {
+
+        Stack<String> temp = new Stack<String>();
+        int leftParen = 3;
+        int rightParen = 3;
+        temp.push("(");
+        while(! temp.isEmpty() ) {
+
+            while(leftParen > 0) {
+                leftParen--;
+                String current = temp.peek();
+                temp.push(current+"(");
+            }
+            if(rightParen > leftParen) {
+                String current = temp.peek();
+
+            }
+
+
+        }
+
+    }
+
+    private static List<String> addParensRecur(List<String> allParens, int leftParen, int rightParen,
                                           char[] str, int count) {
 
-        if(leftParen < 0 || rightParen < leftParen) return null; // invalid state
+        if(leftParen < 0 || rightParen < leftParen) return null; // invalid condition
 
         if(leftParen == 0 && rightParen ==0) {
             allParens.add(String.valueOf(str));
         }
+
         if(leftParen > 0) {
             str[count] = '(';
-            allParens = addParens(allParens, leftParen-1, rightParen, str, count+1);
+            allParens = addParensRecur(allParens, leftParen-1, rightParen, str, count+1);
         }
         if(rightParen > leftParen) {
             str[count] = ')';
-            allParens = addParens(allParens, leftParen, rightParen-1, str, count+1);
+            allParens = addParensRecur(allParens, leftParen, rightParen-1, str,count+1);
         }
         return allParens;
     }

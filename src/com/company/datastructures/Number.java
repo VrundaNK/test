@@ -14,13 +14,12 @@ public class Number {
 
     private static void printPermutations(int[] input, int startIndex) {
 
-        if(startIndex == input.length-1) {
-            for(int i=0; i<input.length; i++) {
-                System.out.print(input[i]+",");
+        if (startIndex == input.length - 1) {
+            for (int i = 0; i < input.length; i++) {
+                System.out.print(input[i] + ",");
             }
             System.out.println();
-        }
-        else {
+        } else {
             int temp;
             for (int i = startIndex; i < input.length; i++) {
 
@@ -63,4 +62,89 @@ public class Number {
         }
         return trailingZeros;
     }
+
+    // How to convert numeric String to an int
+    public static int convertNumericStringToInt(String numeric) throws NumberFormatException {
+
+        int length = numeric.length();
+        int number = 0;
+        int c;
+        for (int i = 0; i < length; i++) {
+            c = numeric.charAt(i);
+            if (48 <= c && c <= 57) {
+                number = number * 10 + (c - 48);
+            } else {
+                throw new NumberFormatException();
+            }
+        }
+        return number;
+    }
+
+    // arr1 = 1,1,2,3,3,4,5,7,9
+    // arr2 = 1,1,2,2,5,8,9,10,10,10,100
+    // similarityIndex = #unique elements/ total unique elements
+    // # total unique elements = 1,2,3,4,5,7,8,9,10,100
+    // # non-intersecting unique elements = 3,4,7,8,10,100
+    // # intersecting unique elements = 1,2,5,9
+    public static void getSimilarityIndex(int[] arr1, int[] arr2) {
+
+        int count = 0;
+        int countIntersecting = 0;
+        int prevIntersecting = Integer.MIN_VALUE;
+        int prevArr1 = Integer.MIN_VALUE;
+        int prevArr2 = Integer.MIN_VALUE-1;
+
+        int i = 0;
+        int j = 0;
+
+        while(i < arr1.length && j < arr2.length) {
+
+            if(arr1[i] == arr2[j]) {
+
+                if(prevIntersecting != arr1[i]) {
+                    prevIntersecting = arr1[i];
+                    countIntersecting++;
+                    System.out.println("Prev Interesting "+ prevIntersecting);
+                }
+                prevArr1 = arr1[i];
+                prevArr2 = arr2[j];
+                i++;
+                j++;
+            } else if(arr1[i] > arr2[j]) {
+                if(prevArr2 != arr2[j]) {
+                    prevArr2 = arr2[j];
+                    count++;
+                    System.out.println("arr2[j] "+ arr2[j]);
+                }
+                j++;
+            } else {
+                if(prevArr1 != arr1[i]) {
+                    prevArr1 = arr1[i];
+                    count++;
+                    System.out.println("arr1[i] "+ arr1[i]);
+                }
+                i++;
+            }
+        }
+        while(i < arr1.length) {
+            if(prevArr1 != arr1[i]) {
+                prevArr1 = arr1[i];
+                count++;
+                System.out.println("arr1[i] "+ arr1[i]);
+            }
+            i++;
+        }
+        while(j < arr2.length) {
+            if (prevArr2 != arr2[j]) {
+                prevArr2 = arr2[j];
+                count++;
+                System.out.println("arr2[j] " + arr2[j]);
+            }
+            j++;
+        }
+        System.out.println("Count Unique But Not Intersecting " + count);
+        System.out.println("Count Intersecting " + countIntersecting);
+        System.out.println("Similarity Index " + (countIntersecting*100/(countIntersecting + count)));
+    }
 }
+
