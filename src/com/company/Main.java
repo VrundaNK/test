@@ -1,8 +1,11 @@
 package com.company;
 
-import com.company.Recursion.Recursion;
+import com.company.Recursion.*;
+import com.company.Recursion.Point;
 import com.company.datastructures.*;
 import com.company.datastructures.Number;
+import com.company.datastructures.expressionTree.ExpressionTree;
+import com.company.datastructures.expressionTree.ExpressionTreeNode;
 import com.company.datastructures.graph.Graph;
 import com.company.datastructures.graph.GraphNode;
 import com.company.datastructures.linkedList.MyLinkedList;
@@ -13,8 +16,11 @@ import com.company.datastructures.string.Strings;
 import com.company.mathematics.PrimeNumbers;
 import com.company.searching.Searching;
 import com.company.sorting.*;
+import com.ebay.Ebay1;
 import com.ebay.Ebay2;
+import com.paypal.Paypal;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -939,6 +945,7 @@ public class Main {
         val = sortedStack.peek();
 
         PrimeNumbers.printListOfPrimeNumbers(20);
+        PrimeNumbers.printListOfPrimeNumbers(120);
 
         TowersOfHanoi.moveDisks();
 
@@ -961,6 +968,11 @@ public class Main {
         binarySearchTree.deleteANode(binarySearchTree.getRoot(),15);
 
         Recursion.printParens(3);
+        System.out.println();
+        System.out.println();
+        System.out.println();
+        Recursion.printParensDP(3);
+        Recursion.stringPermutations("a");
         Recursion.stringPermutations("abc");
         Recursion.findMagicIndexDistinct(new int[] {-40,-20, -1,1,2,3,5,7,9,12,13});
         Recursion.findMagicIndexDistinct(new int[] {-40,-20, 1,2,2,3,5,7,9,12,13});
@@ -1026,10 +1038,84 @@ public class Main {
         System.out.println("Number of 1's "+ Ebay2.numberOfOnes(10));
         System.out.println("Number of 1's "+ Ebay2.numberOfOnes(100000));
 
+        System.out.println(" Less Efficient Method");
+        Ebay2.lessEfficientStartAndEndIndexesOfN(new int[]{0,0,1,1,1,5,5,6,6,6,6,7,11}, 5);
+        Ebay2.lessEfficientStartAndEndIndexesOfN(new int[]{2,2,2,2,2,2,2,2}, 2);
+        Ebay2.lessEfficientStartAndEndIndexesOfN(new int[]{0,0,1,1,1,5,5,6,6,6,6,7,11}, 100);
+        Ebay2.lessEfficientStartAndEndIndexesOfN(new int[]{0,0,1,1,1,5,5,6,6,6,6,7,11}, 7);
+
+        System.out.println(" More Efficient Method");
         Ebay2.printStartAndEndIndexesOfN(new int[]{0,0,1,1,1,5,5,6,6,6,6,7,11}, 5);
         Ebay2.printStartAndEndIndexesOfN(new int[]{2,2,2,2,2,2,2,2}, 2);
         Ebay2.printStartAndEndIndexesOfN(new int[]{0,0,1,1,1,5,5,6,6,6,6,7,11}, 100);
         Ebay2.printStartAndEndIndexesOfN(new int[]{0,0,1,1,1,5,5,6,6,6,6,7,11}, 7);
 
+        String paragraph = "I am a girl. I study in 12th std. I love paintings, listening music etc";
+        System.out.println(String.format("Count of word %s in paragraph %s = %d", "I",paragraph, Ebay1.countWords(paragraph, "I")));
+        System.out.println(String.format("Count of word %s in paragraph %s = %d", "am", paragraph, Ebay1.countWords(paragraph, "am")));
+        System.out.println(String.format("Count of word %s in paragraph %s = %d", "loooo",paragraph, Ebay1.countWords(paragraph, "looooo")));
+
+        Ebay1.delDel("adelbc");
+
+        Paypal.printArray(new int[] {7, 5, 6, 3, 4, 1, 2, 9, 11});
+
+        myLinkedList = new MyLinkedList<Integer>();
+        myLinkedList.addAtEnd(1);
+        myLinkedList.addAtEnd(2);
+        myLinkedList.addAtEnd(3);
+        myLinkedList.addAtEnd(4);
+        myLinkedList.addAtEnd(5);
+        myLinkedList.addAtEnd(6);
+        myLinkedList.addAtEnd(7);
+        myLinkedList.addAtEnd(8);
+        myLinkedList.addAtEnd(9);
+        myLinkedList.printLinkedList();
+        Paypal.printOneThirdTwoThirdEfficiently(myLinkedList);
+
+        binarySearchTree = new BinarySearchTree();
+        binarySearchTree.add(5);
+        binarySearchTree.add(4);
+        binarySearchTree.add(3);
+        binarySearchTree.add(2);
+        binarySearchTree.add(1);
+
+        binarySearchTree.printBinaryTreeInOrder(binarySearchTree.getRoot());
+        System.out.println("Binary tree is BST = " + BinarySearchTree.checkIfBinarySearchTree(binarySearchTree.getRoot()));
+
+        Ebay1.getClassName();
+
+        PrimeNumbers.findKthNumber(10);
+
+        Color[][] screen = new Color[4][5];
+        screen[0] = new Color[] {Color.blue, Color.gray, Color.gray, Color.blue, Color.blue};
+        screen[1] = new Color[] {Color.gray, Color.blue, Color.black, Color.gray, Color.pink};
+        screen[2] = new Color[] {Color.gray, Color.pink, Color.gray, Color.black, Color.gray};
+        screen[3] = new Color[] {Color.gray, Color.pink, Color.black, Color.gray, Color.blue};
+
+        screen = Recursion.paintFill(screen, new Point(0,1), Color.GREEN);
+
+        if(screen != null) {
+
+            for(int i=0; i<screen.length; i++) {
+                System.out.println();
+                for(int j=0; j<screen.length; j++) {
+                    System.out.print(screen[i][j]);
+                }
+            }
+        }
+        System.out.println();
+
+        Recursion.getNumberOfWays();
+        Recursion.getWaysOfArrangeQueens(8);
+
+        ExpressionTreeNode<Character> root =
+                ExpressionTree.createExpressionTreeUsingPostfix("359+2*+");
+
+        ExpressionTree.evaluateExpressionTree(root);
+
+        ExpressionTree.printInfixToPostfix("3+((5+9)*2)");
+
+        //ExpressionTree.infixToPrefix("+3*2+59");
+        ExpressionTree.infixToPrefix("3+((5+9)*2)");
     }
 }

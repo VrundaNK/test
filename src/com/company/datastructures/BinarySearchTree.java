@@ -114,4 +114,28 @@ public class BinarySearchTree {
         return root;
     }
 
+    // find if binary tree is binary search tree
+    public static boolean checkIfBinarySearchTree(TreeNode root) {
+
+        return traverseInOrder(root, true);
+    }
+
+    private static boolean traverseInOrder(TreeNode root, boolean result) {
+
+        if(root == null) {
+            return true;
+        }
+        result = traverseInOrder(root.left, result);
+        if(root.left!= null && root.left.getData() < root.getData()
+           && root.right != null && root.right.getData() > root.getData()){
+            result = result && true;
+        } else {
+            result = result && false;
+        }
+        result = traverseInOrder(root.right, result);
+
+        return result;
+    }
+
+
 }

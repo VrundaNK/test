@@ -1,8 +1,6 @@
 package com.company.datastructures;
 
 import com.company.datastructures.queue.Queue;
-import com.sun.org.apache.bcel.internal.generic.INEG;
-import com.sun.source.tree.Tree;
 
 import java.util.ArrayList;
 import java.util.LinkedList;

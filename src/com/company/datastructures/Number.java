@@ -12,25 +12,29 @@ public class Number {
         printPermutations(numberArray, 0);
     }
 
-    private static void printPermutations(int[] input, int startIndex) {
+    private static void printPermutations(int[] numberArray, int startIndex) {
 
-        if (startIndex == input.length - 1) {
-            for (int i = 0; i < input.length; i++) {
-                System.out.print(input[i] + ",");
-            }
+        if(startIndex == numberArray.length-1) {
             System.out.println();
+            for(int i=0; i<numberArray.length; i++) {
+                System.out.print(numberArray[i] + ",");
+            }
         } else {
             int temp;
-            for (int i = startIndex; i < input.length; i++) {
+            for(int i= startIndex; i<numberArray.length; i++) {
+                temp = numberArray[i];
+                numberArray[i] = numberArray[startIndex];
+                numberArray[startIndex] = temp;
 
-                temp = input[i];
-                input[i] = input[startIndex];
-                input[startIndex] = temp;
-                printPermutations(input, startIndex + 1);
+                printPermutations(numberArray, startIndex+1);
+
+                temp = numberArray[i];
+                numberArray[i] = numberArray[startIndex];
+                numberArray[startIndex] = temp;
             }
         }
-
     }
+
 
     // Count trailing zeroes in factorial of a number
     // Trailing 0s in n! = Count of 5s in prime factors of n! = floor(n/5) + floor(n/25) + floor(n/125) + ....
