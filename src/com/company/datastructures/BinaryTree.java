@@ -487,29 +487,32 @@ public class BinaryTree {
     // is identical to T2. That is, if you cut off the tree at node n, the two trees would be identical
     public static boolean t1ContainsT2(TreeNode t1, TreeNode t2) {
 
-        if(t2 == null) return false;
-        return isSubTree(t2, t2);
+        return checkRecur(t1, t2);
     }
 
-    private static boolean isSubTree(TreeNode t1, TreeNode t2) {
-
-        if(t1 == null) return false;
-
-        if(t1.getData() == t2.getData()) {
-            return matchTree(t1, t2);
-        }
-        return (isSubTree(t1.left, t2.left) || isSubTree(t1.right, t2.right));
-    }
-
-    private static boolean matchTree(TreeNode t1, TreeNode t2) {
-
-        if(t1 == null && t2 == null) return true;
+    private static boolean checkRecur(TreeNode t1, TreeNode t2) {
 
         if(t1 == null || t2 == null) return false;
 
-        if(t1.getData() != t2.getData()) return false;
+        if(t1.getData() == t2.getData()) {
+            return matchTree(t1, t2);
+        } else {
+            return checkRecur(t1.getLeft(), t2.getLeft()) || checkRecur(t1.getRight(), t2.getRight());
+        }
+    }
 
-        return (matchTree(t1.left, t2.left) && matchTree(t1.right, t2.right));
+    private static boolean matchTree(TreeNode t1, TreeNode t2){
+
+        if(t1 != null && t2 != null) {
+
+            if(t1.getData() == t2.getData()) {
+                return matchTree(t1.getLeft(), t2.getLeft()) &&
+                        matchTree(t1.getRight(), t2.getRight());
+            } else {
+                return false;
+            }
+        }
+        return false;
     }
 
     // Design an algorithm and write code to find the first common ancestor of two nodes in a binary tree.
@@ -543,6 +546,51 @@ public class BinaryTree {
         if(root == node) return true;
 
         return (isRootDescendentOfNode(root.left, node) || isRootDescendentOfNode(root.right, node));
+    }
+
+    /*
+    You are given a binary tree in which each node contains a value.
+    Design an algorithm to print all paths which sum to a given value.
+    The path does not need to start or end at the root or a leaf.
+     */
+    /*
+    Path ends anywhere and starts anywhere,
+    hence in other words - path will start at a node, it can end at any node in its path upto root
+    Hence to handle this situation, will start checking path from a node to root(check upwords)
+    Let's assum level at root is 0
+     */
+    public static void findSum(TreeNode root, int sum) {
+
+        int depth = getDepth(root);
+        int[] path = new int[depth];
+        findSum(root, path, sum, 0);
+    }
+
+    private static void findSum(TreeNode root, int[] path, int sum, int level) {
+
+        if(root == null) return;
+
+        path[level] = root.getData();
+        int tempSum = 0;
+        for(int i= level; i>=0; i++) {
+
+            tempSum = tempSum + path[i];
+            if(tempSum == sum) {
+                // print path from level to i
+                for(int j=level; j>=i; j--){
+                    System.out.print(path[j]+",");
+                }
+            }
+        }
+        findSum(root.getLeft(), path, sum, level+1);
+        findSum(root.getRight(), path, sum, level+1);
+    }
+
+    // maximum value of path can be equal to depth of tree, hence calculate depth of tree.
+    private static int getDepth(TreeNode node){
+
+        if(node == null) return 0;
+        return Math.max(getDepth(node.left), getDepth(node.right)) + 1;
     }
 }
 class TreeNodeWithParent {
@@ -591,3 +639,29 @@ class TreeNodeWithParent {
         this.parent = parent;
     }
 }
+/*
+if(t2 == null) return false;
+        return isSubTree(t2, t2);
+    }
+
+    private static boolean isSubTree(TreeNode t1, TreeNode t2) {
+
+        if(t1 == null) return false;
+
+        if(t1.getData() == t2.getData()) {
+            return matchTree(t1, t2);
+        }
+        return (isSubTree(t1.left, t2.left) || isSubTree(t1.right, t2.right));
+    }
+
+    private static boolean matchTree(TreeNode t1, TreeNode t2) {
+
+        if(t1 == null && t2 == null) return true;
+
+        if(t1 == null || t2 == null) return false;
+
+        if(t1.getData() != t2.getData()) return false;
+
+        return (matchTree(t1.left, t2.left) && matchTree(t1.right, t2.right));
+    }
+ */

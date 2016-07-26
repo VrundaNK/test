@@ -1,0 +1,27 @@
+15.1 Write a SQL query to get a list of tenants who are renting more than one apartment.
+
+     Select Tenants.TenantID, Tenants.TenantName, IsNull(count(AptTenants.AptID), 0) cnt
+     FROM Tenants LEFT JOIN
+     AptTenants
+     ON AptTenants.TenantID = Tenants.TenantID
+     GROUP BY AptTenants.TenantID, Tenants.TenantName
+     HAVING cnt > 1
+
+15.2 Write a SQL query to get a list of all buildings and the number of open requests. (Requests in which status equals 'Open')
+
+     Select Buildings.BuildingID, Buildings.BuildingName, Buildings.Address, isNull(req, 0) cnt
+     from Buildings Left Join
+        (select Apartments.BuildingID, count(Requests.RequestID) as req
+        from Apartments Left Join Requests
+        on Aparments.AptID = Requests.AptID
+        where Requests.Status =‘Open’
+        Group By Apartments.BuildingID) temp
+        on
+        Buildings.BuildingID = temp.BuildingID
+
+15.3 Building #11 is undergoing a major renovation. Implement a query to close all requests from apartments in this building
+
+    update Requests set Requests.Status = 'Close'
+    where Requests.AptID in
+          (select Apartments.AptID from Apartments
+           where Apartments.BuildingID = 11)

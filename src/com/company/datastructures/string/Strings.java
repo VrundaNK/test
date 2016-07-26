@@ -692,18 +692,27 @@ public class Strings {
     // Write a program to print all permutations of a given string
     public static void printAllPermutationsOfString(String input) {
 
-        printPermutations("", input);
+        Set<String> result = new HashSet<String>();
+        result = printPermutations("", input, result);
+
+        System.out.println();
+        for(String s: result) {
+            System.out.print(s+",");
+        }
+        System.out.println();
     }
 
-    private static void printPermutations(String prefix, String input) {
+    private static Set<String> printPermutations(String prefix, String input, Set<String> result) {
         int n = input.length();
         if(n == 0) {
-            System.out.println(prefix);
-            return;
+            result.add(prefix);
+        } else {
+            for (int i = 0; i < n; i++) {
+                result = printPermutations(prefix + input.charAt(i),
+                        input.substring(0, i) + input.substring(i + 1, n), result);
+            }
         }
-        for(int i=0; i<n; i++) {
-            printPermutations(prefix + input.charAt(i), input.substring(0, i)+ input.substring(i+1, n));
-        }
+        return result;
     }
 
     // Write a method to replace all spaces in a string with'%20'. You may assume that

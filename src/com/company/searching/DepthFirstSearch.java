@@ -1,4 +1,4 @@
-package com.company.datastructures;
+package com.company.searching;
 
 import com.company.datastructures.graph.GraphNode;
 

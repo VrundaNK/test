@@ -5,8 +5,20 @@ package com.company.thread;
  */
 public class ThreadImplementation2 extends Thread {
 
-    @Override
-    public void start() {
+    public int count = 0;
+    public void run() {
+
+        while(count < 5) {
+
+            try {
+                Thread.sleep(1000);
+                System.out.println(count);
+                count++;
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
 
     }
+
 }

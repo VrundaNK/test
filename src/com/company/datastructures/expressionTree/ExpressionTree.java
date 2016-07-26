@@ -14,8 +14,7 @@ public class ExpressionTree {
     // Postfix expression = 359+2*+
     public static ExpressionTreeNode<Character> createExpressionTreeUsingPostfix(String input) {
 
-        Stack<ExpressionTreeNode<Character>> stack = new
-                Stack<ExpressionTreeNode<Character>>();
+        Stack<ExpressionTreeNode<Character>> stack = new Stack<ExpressionTreeNode<Character>>();
 
         for (int i = 0; i < input.length(); i++) {
             ExpressionTreeNode<Character> node =
@@ -65,10 +64,12 @@ public class ExpressionTree {
             } else if(c == '(') {
                 symbolStack.push(c);
             } else if(c == ')') {
-                char temp = symbolStack.peek();
-                while( temp!= '(') {
-                    operandStack.push(symbolStack.pop());
-                    temp = symbolStack.peek();
+                while (!symbolStack.isEmpty()) {
+                    char temp = symbolStack.peek();
+                    if(temp != '(') {
+                        operandStack.push(symbolStack.pop());
+                        temp = symbolStack.peek();
+                    }
                 }
                 symbolStack.pop();
             } else {

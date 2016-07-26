@@ -90,7 +90,6 @@ public class MyLinkedList<E> {
         this.head = head;
     }
 
-
     public void printLinkedList() {
 
         if(head == null) {
@@ -454,11 +453,11 @@ public class MyLinkedList<E> {
 
         while(slowPointer != null && fastPointer != null && fastPointer.getNext() != null) {
 
+            slowPointer = slowPointer.getNext();
+            fastPointer = fastPointer.getNext().getNext();
             if(slowPointer == fastPointer) {
                 break;
             }
-            slowPointer = slowPointer.getNext();
-            fastPointer = fastPointer.getNext().getNext();
         }
 
         // 3. move slowpointer towards head of the second list to detect the begining of second list
@@ -483,17 +482,21 @@ public class MyLinkedList<E> {
     // Write a recursive function to print reverse of a Linked List
     public Node<Integer> reverseList(MyLinkedList<Integer> list) {
 
-        return reverseListRecur(list, null, list.getHead());
+        return reverseListRecur(null, list.getHead());
     }
 
-    private Node<Integer> reverseListRecur(MyLinkedList<Integer> list, Node<Integer> head, Node<Integer> current) {
+    private Node<Integer> reverseListRecur(Node<Integer> newHead, Node<Integer> current) {
 
-        if(current == null) return head;
+        if(current == null) { // either empty list or end of list
+            return newHead;
+        }
 
         Node<Integer> next = current.getNext();
-        current.setNext(head);
+        current.setNext(newHead);
+        newHead = current;
+        current = next;
 
-        return reverseListRecur(list, current, next);
+        return reverseListRecur(newHead, current);
     }
 
     // Remove duplicates from a sorted linked list in increasing order
@@ -565,6 +568,7 @@ public class MyLinkedList<E> {
         printLinkedList(myLinkedList.getHead());
 
     }
+
     // Pairwise swap elements of a given linked list
     public void swapElementsInLinkedList(MyLinkedList myLinkedList) {
 
@@ -745,10 +749,12 @@ public class MyLinkedList<E> {
     private PartialSum getPartialSum(Node<Integer> first, Node<Integer> second) {
 
         if(first == null && second == null) {
-            PartialSum partialSum = new PartialSum();
-            return partialSum;
+            PartialSum sum = new PartialSum(); // defaults sum=0 and carry=0;
+            return sum;
         }
-        PartialSum sum = getPartialSum(first.next, second.next);
+
+        PartialSum sum = getPartialSum(first.getNext(), second.getNext());
+
         int val = sum.getCarry() + first.getData() + second.getData();
 
         Node<Integer> full_result = insertBefore(sum.getSum(), val%10);
@@ -757,7 +763,6 @@ public class MyLinkedList<E> {
         sum.setCarry(val/10);
 
         return sum;
-
     }
 
     private Node<Integer> insertBefore(Node<Integer>node, int digit) {
@@ -813,6 +818,15 @@ public class MyLinkedList<E> {
         return slowPointer;
     }
 }
+/*
+ PartialSum sum = getPartialSum(first.next, second.next);
+        int val = sum.getCarry() + first.getData() + second.getData();
+
+        Node<Integer> full_result = insertBefore(sum.getSum(), val%10);
+
+        sum.setSum(full_result);
+        sum.setCarry(val/10);
+ */
 
 class PartialSum {
 

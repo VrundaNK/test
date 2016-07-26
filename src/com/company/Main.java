@@ -1,5 +1,6 @@
 package com.company;
 
+import com.Finally;
 import com.company.Recursion.*;
 import com.company.Recursion.Point;
 import com.company.datastructures.*;
@@ -14,10 +15,15 @@ import com.company.datastructures.stack.SetOfStacks;
 import com.company.datastructures.stack.SortedStack;
 import com.company.datastructures.string.Strings;
 import com.company.mathematics.PrimeNumbers;
+import com.company.searching.BreadthFirstSearch;
+import com.company.searching.DepthFirstSearch;
 import com.company.searching.Searching;
 import com.company.sorting.*;
+import com.company.thread.ThreadImplementation1;
+import com.company.thread.ThreadImplementation2;
 import com.ebay.Ebay1;
 import com.ebay.Ebay2;
+import com.ebay.SortStringsInFile;
 import com.paypal.Paypal;
 
 import java.awt.*;
@@ -556,6 +562,10 @@ public class Main {
         bfs.breadthFirstSearchOnGraph(vertex);
         System.out.println();
 
+        System.out.println("Breadth First Search on graph");
+        bfs.bfs(vertex);
+        System.out.println();
+
         boolean[][] matrix = new boolean[3][4];
         matrix[0] = new boolean[]{false, false, true, false};
         matrix[1] = new boolean[]{true, false, false, false};
@@ -719,9 +729,11 @@ public class Main {
         InsertionSort.printInsertionSort(new int[]{10,9,8,7,6,5,4,3,2,1});
         InsertionSort.printInsertionSort(new int[]{100, 15,20,2});
         SelectionSort.printSelectionSort(new int[]{10,9,8,7,6,5,4,3,2,1});
-        //QuickSort.printQuickSort(new int[]{1,2,3,4,5,6,7,8,9,10});
+
         System.out.println("Quick Sort");
         QuickSort.printQuickSort(new int[]{100, 23, 45, 56, 67});
+        System.out.println("Quick Sort");
+        QuickSort.printQuickSort(new int[]{10,9,8,7,6,5,4,3,2,1});
 
         System.out.println("Non-Recursive");
         boolean isPresent = Searching.isNumberPresentUsingBS(new int[]{7,9,15,23,25,100}, 7);
@@ -977,25 +989,35 @@ public class Main {
         Recursion.findMagicIndexDistinct(new int[] {-40,-20, -1,1,2,3,5,7,9,12,13});
         Recursion.findMagicIndexDistinct(new int[] {-40,-20, 1,2,2,3,5,7,9,12,13});
 
-        /*ThreadImplementation1 thread1 = new ThreadImplementation1();
-        System.out.println("Thread using runnable interface.");
-        thread1.run();
+        ThreadImplementation1 threadRunnable = new ThreadImplementation1();
+        System.out.println("Thread is passing object of ThreadImplementation1 class, which is implementing runnable interface.");
+        Thread thread = new Thread(threadRunnable);
         System.out.println("Thread control is returned");
 
-        ThreadImplementation1 threadRunnable = new ThreadImplementation1();
-        System.out.println("Thread is passing object of class, which implemented runnable interface.");
-        Thread thread = new Thread(threadRunnable);
         thread.start();
 
         while(threadRunnable.count != 5) {
             try {
                 System.out.println("Waiting till count is less than 5");
-                Thread.sleep(1000);
+                Thread.sleep(500);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }
-        System.out.println("Completed thread implementation");*/
+        System.out.println("Completed thread implementation");
+
+        ThreadImplementation2 thread2 = new ThreadImplementation2();
+        System.out.println("ThreadImplementation1 class is extending runnable interface.");
+        thread2.start();
+
+        while(thread2.count != 5) {
+            try {
+                System.out.println("Waiting till count is less than 5");
+                Thread.sleep(500);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
 
         Strings.printAndSortStringsBasedOnLength(new String[] {"abcd","a","ldd","lhjfhjdfshfdshhjdsf", "345","45"});
 
@@ -1113,9 +1135,86 @@ public class Main {
 
         ExpressionTree.evaluateExpressionTree(root);
 
-        ExpressionTree.printInfixToPostfix("3+((5+9)*2)");
+        //ExpressionTree.printInfixToPostfix("3+((5+9)*2)");
 
         //ExpressionTree.infixToPrefix("+3*2+59");
-        ExpressionTree.infixToPrefix("3+((5+9)*2)");
+        //ExpressionTree.infixToPrefix("3+((5+9)*2)");
+
+        System.out.println(Integer.MAX_VALUE);
+
+        char[][] matrixImage = new char[4][4];
+        matrixImage[0] = new char[]{'A','B','C','D'};
+        matrixImage[1] = new char[]{'E','F','G','H'};
+        matrixImage[2] = new char[]{'I','J','K','L'};
+        matrixImage[3] = new char[]{'M','N','O','P'};
+
+        System.out.println("ORIGINAL MATRIX");
+        for(int i=0; i<4; i++) {
+            System.out.println();
+            for(int j=0; j<4;j++) {
+                System.out.print(matrixImage[i][j]+",");
+            }
+        }
+
+        Matrix.rotateMatrix(matrixImage);
+
+        System.out.println("ROTATED MATRIX");
+        for(int i=0; i<4; i++) {
+            System.out.println();
+            for(int j=0; j<4;j++) {
+                System.out.print(matrixImage[i][j]+",");
+            }
+        }
+
+        SortStringsInFile.findAStringInFile("TestFile.txt", "Nachiket");
+        SortStringsInFile.findAStringInFile("TestFile.txt", "Missing");
+
+        int[] array = new int[]{10,9,8,7,6,5,4,3,2,1};
+        System.out.println("Original Array");
+        for(int i=0; i<array.length; i++) {
+            System.out.print(array[i]+",");
+        }
+        array = MergeSort.mergeSort(array);
+        System.out.println("\nSorted Array");
+        for(int i=0; i<array.length; i++) {
+            System.out.print(array[i]+",");
+        }
+
+        array = new int[]{1,4,5,2,8,9};
+        System.out.println("\nOriginal Array");
+        for(int i=0; i<array.length; i++) {
+            System.out.print(array[i]+",");
+        }
+        array = MergeSort.mergeSort(array);
+        System.out.println("\nSorted Array");
+        for(int i=0; i<array.length; i++) {
+            System.out.print(array[i]+",");
+        }
+
+        Finally.bar();
+
+        CircularArray<Integer> circularArray = new CircularArray<Integer>(5);
+        circularArray.add(400,0);
+        circularArray.add(4,1);
+        circularArray.add(14,2);
+        circularArray.add(24,3);
+        circularArray.add(34,4);
+
+        System.out.println();
+        for(Integer i: circularArray){
+            System.out.print(i+",");
+        }
+
+        circularArray.rotate(1);
+        System.out.println();
+        for(Integer i: circularArray){
+            System.out.print(i+",");
+        }
+
+        circularArray.rotate(2);
+        System.out.println();
+        for(Integer i: circularArray){
+            System.out.print(i+",");
+        }
     }
 }

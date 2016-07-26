@@ -59,7 +59,7 @@ public class Matrix {
 
         // 1. copy 0th row to auxilary matrix
         // 2. copy 0th column to auxilary matrix
-        // 3. if input[i][j] = 1, then temp[i][j] = min(input[i][j-1], input[i-1][j], input[i-1][j-1]
+        // 3. if input[i][j] = 1, then temp[i][j] = min(input[i][j-1], input[i-1][j], input[i-1][j-1] + 1
         // 4. find maximum entry in temp[][]
         // 5. using row and columns of temp, calculate maximum size submatrix of 1s
 
@@ -471,6 +471,36 @@ public class Matrix {
             System.out.println();
             for (int col = 0; col < input[0].length; col++) {
                 System.out.print(input[row][col] + ",");
+            }
+        }
+    }
+
+    // Given an image represented by an NxN matrix, where each pixel in the image is 4 bytes,
+    // write a method to rotate the image by 90 degrees. Can you do this in place?
+    // rotate layer by layer
+    // in NXN matrix, there are n/2 layers
+    public static void rotateMatrix(char[][] matrix) {
+
+        int n = matrix.length; // size of nXn matrix
+
+        for(int layer =0; layer<n/2; layer++) {
+
+            int first = layer;
+            int last = n-1-layer;
+
+            for(int i=first; i<last; i++){
+
+                int offset = i-first;
+                //save top
+                char top = matrix[first][i];
+                // left -> top
+                matrix[first][i] = matrix[last-offset][first];
+                // bottom -> left
+                matrix[last-offset][first] = matrix[last][last-offset];
+                // right -> bottom
+                matrix[last][last-offset] = matrix[i][last];
+                // top -> right
+                matrix[i][last] = top;
             }
         }
     }
