@@ -55,6 +55,7 @@ public class ExternalSort {
             }
 
             // read all tempfiles and compare nth Strings in all files
+            mergeSortedFiles(slices, tempFile);
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();

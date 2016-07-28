@@ -3,6 +3,7 @@ package com.company;
 import com.Finally;
 import com.company.Recursion.*;
 import com.company.Recursion.Point;
+import com.company.bitManipulation.BitManipulation;
 import com.company.datastructures.*;
 import com.company.datastructures.Number;
 import com.company.datastructures.expressionTree.ExpressionTree;
@@ -25,6 +26,7 @@ import com.ebay.Ebay1;
 import com.ebay.Ebay2;
 import com.ebay.SortStringsInFile;
 import com.paypal.Paypal;
+import com.sun.tools.internal.xjc.reader.xmlschema.bindinfo.BISchemaBinding;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -989,7 +991,7 @@ public class Main {
         Recursion.findMagicIndexDistinct(new int[] {-40,-20, -1,1,2,3,5,7,9,12,13});
         Recursion.findMagicIndexDistinct(new int[] {-40,-20, 1,2,2,3,5,7,9,12,13});
 
-        ThreadImplementation1 threadRunnable = new ThreadImplementation1();
+        /* ThreadImplementation1 threadRunnable = new ThreadImplementation1();
         System.out.println("Thread is passing object of ThreadImplementation1 class, which is implementing runnable interface.");
         Thread thread = new Thread(threadRunnable);
         System.out.println("Thread control is returned");
@@ -1017,7 +1019,7 @@ public class Main {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-        }
+        }*/
 
         Strings.printAndSortStringsBasedOnLength(new String[] {"abcd","a","ldd","lhjfhjdfshfdshhjdsf", "345","45"});
 
@@ -1052,7 +1054,7 @@ public class Main {
         Strings.printAnagramsTogetherUsingComparator(new String[]{"bat","top","ant","pot","act","tab","cat","tan"});
         Strings.printAnagramsTogether(new String[]{"bat","top","ant","pot","act","tab","cat","tan"});
 
-        Strings.printSortedArraysAtBegining(new int[]{1,3,5,9,11,0,0,0,0,0}, new int[]{2,4,6,8,10});
+        Strings.printSortedArraysAtEnd(new int[]{1,3,5,9,11,0,0,0,0,0}, new int[]{2,4,6,8,10});
         Strings.printSortedArraysAtEnd(new int[]{1,3,11,0,0,0,0,0}, new int[]{2,4,6,8,10});
 
         Number.getSimilarityIndex(new int[]{1,1,2,3,3,4,5,7,9}, new int[]{1,1,2,2,5,8,9,10,10,10,100});
@@ -1216,5 +1218,38 @@ public class Main {
         for(Integer i: circularArray){
             System.out.print(i+",");
         }
+
+        BitManipulation.mergeNumbers(1024, 19, 2, 6);
+        BitManipulation.doubleToBinary(0.5);
+        BitManipulation.doubleToBinary(0.72);
+
+        BitManipulation.findDifferentBits(2,1);
+        BitManipulation.findDifferentBits(20,100); // 100 = 01100100 20 = 00010100
+
+        BitManipulation.findDifferentBitsMethod2(2,1);
+        BitManipulation.findDifferentBitsMethod2(20,100); // 100 = 01100100 20 = 00010100
+
+        List<Integer[]> numbers = new ArrayList<Integer[]>();
+        numbers.add(new Integer[]{0,0});
+        numbers.add(new Integer[]{0,1});
+        numbers.add(new Integer[]{1,1});
+
+        BitManipulation.findMissingNumber(numbers);
+
+
+        input = new int[4][5];
+        input[0] = new int[]{1, 2, 3, 4,5};
+        input[1] = new int[]{2, 6, 9, 12, 13};
+        input[2] = new int[]{3, 7, 9, 14, 18};
+        input[3] = new int[]{4, 8, 10, 19, 20};
+
+        Searching.findAnElement(input, 13);
+        Searching.findAnElement(input, 8);
+        Searching.findAnElement(input, 0);
+        Searching.findAnElement(input, 1);
+        Searching.findAnElement(input, 4);
+        Searching.findAnElement(input, 14);
+        Searching.findAnElement(input, 20);
+
     }
 }

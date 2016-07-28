@@ -1029,71 +1029,39 @@ public class Strings {
     // You are given two sorted arrays, A and B, where A has a large enough buffer at the end to hold B.
     // Write a method to merge B into A in sorted order
     // inserting elements at the back of the array
-    public static void printSortedArraysAtBegining(int[] A, int[] B) {
-
-        int lengthA = A.length;
-        int lengthB = B.length;
-
-        int indexA = lengthA;
-        int indexB = 0;
-
-        for(int i=lengthA-1; i>=0; i--) {
-
-            if(A[i] != 0) {
-                A[--indexA] = A[i];
-            }
-        }
-        // now all elements from array A are shifted from indexA to lengthA-1
-
-        // now populate A by comparing elements from A and B
-        for(int i=0; i<lengthA && indexB<lengthB;i++) {
-
-            if(A[indexA] <= B[indexB]) {
-                A[i] = A[indexA];
-                indexA++;
-            } else {
-                A[i] = B[indexB];
-                indexB++;
-            }
-        }
-
-        // print sorted array
-        System.out.println();
-        for(int i=0;i<lengthA;i++) {
-            System.out.print(A[i]+",");
-        }
-        System.out.println();
-    }
-    // inserting elements at the back of the array
     public static void printSortedArraysAtEnd(int[] A, int[] B) {
 
         int lengthA = A.length;
         int lengthB = B.length;
 
-        int indexB = lengthB-1;
-        int indexA = 0;
-        while(A[indexA] != 0) {
+        int indexA=0;
+        while(A[indexA] != 0){
             indexA++;
         }
-        indexA = indexA - 1;
+        indexA = indexA-1;
+        int indexB = lengthB-1;
 
-        for(int i=lengthA-1; i>=0 && indexA>=0 && indexB>=0; i--) {
+        int current = lengthA-1;
+        while(indexA >=0 && indexB>=0){
 
-            if(A[indexA] > B[indexB]) {
-                A[i] = A[indexA];
+            if(A[indexA] >= B[indexB]){
+                A[current] = A[indexA];
                 indexA--;
+                current--;
             } else {
-                A[i] = B[indexB];
+                A[current] = B[indexB];
                 indexB--;
+                current--;
             }
         }
+        while(indexB >= 0 && current<lengthA){
+            A[current--]=B[indexB];
+        }
 
-        // print sorted array
         System.out.println();
-        for(int i=0;i<lengthA;i++) {
+        for(int i=0; i<lengthA; i++){
             System.out.print(A[i]+",");
         }
-        System.out.println();
     }
 
     // Given an MX N matrix in which each row and each column is sorted in ascending order, write a method to find an element
@@ -1118,3 +1086,31 @@ public class Strings {
     // Generate all binary strings from given pattern
 
 }
+/*
+int lengthA = A.length;
+        int lengthB = B.length;
+
+        int indexA = 0;
+        while(A[indexA] != 0 && indexA < lengthA) {
+            indexA++;
+        }
+        indexA = indexA-1;
+        int indexB = lengthB-1;
+
+        int current = lengthA-1;
+        while(indexA>=0 && indexB >=0){
+
+            if(A[indexA] >= B[indexB]) {
+                A[current--] = A[indexA];
+                indexA--;
+            } else {
+                A[current--] = B[indexB];
+                indexB--;
+            }
+        }
+
+        System.out.println();
+        for(int i=0; i<lengthA; i++){
+            System.out.print(A[i]+",");
+        }
+ */
